@@ -1,0 +1,27 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: ealenn
+  namespace: echo-server
+spec:
+  interval: 5m
+  url: https://ealenn.github.io/charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: echo-server
+  namespace: echo-server
+spec:
+  releaseName: echo-server
+  chart:
+    spec:
+      chart: echo-server
+      sourceRef:
+        kind: HelmRepository
+        name: ealenn
+  interval: 50m
+  install:
+    remediation:
+      retries: 3
