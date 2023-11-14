@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-variables
+  namespace: flux-system
+data:
+  google_project: project-123
+  env: sandbox
+  cluster_name: infra-kind-dev
