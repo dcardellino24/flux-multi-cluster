@@ -9,3 +9,5 @@ spec:
       enabled: true
     alertmanager:
       enabled: false
+    grafana:
+      enabled: true
