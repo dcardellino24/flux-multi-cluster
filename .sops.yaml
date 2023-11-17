@@ -1,0 +1,7 @@
+creation_rules:
+  - encrypted_regex: "^(data|stringData)$"
+    path_regex: '.*/infra-kind-staging/.*\.sops.yaml$'
+    age: age1j6dxtfdmyh8y5l2z60qvvfr2u2yex88f0w56e6qwdenhdagkj3qqquxkux
+  - encrypted_regex: "^(data|stringData)$"
+    path_regex: '.*/infra-kind-dev/.*\.sops.yaml$'
+    age: age19safrkk6nk54l9pv5fa87tfj32aw0q7gd38ke053hutzm8e4nffq08a5qs
