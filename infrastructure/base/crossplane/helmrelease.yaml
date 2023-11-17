@@ -18,7 +18,7 @@ spec:
   chart:
     spec:
       chart: crossplane
-      version: 1.15.0-rc.0.9.ged19cd5d
+      version: 1.14.1
       sourceRef:
         kind: HelmRepository
         name: crossplane-charts
