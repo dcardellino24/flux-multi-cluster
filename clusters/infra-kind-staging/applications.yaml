@@ -8,7 +8,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./applications/staging
+  path: ./applications/infra-kind-staging
   prune: true
   wait: true
   timeout: 5m
