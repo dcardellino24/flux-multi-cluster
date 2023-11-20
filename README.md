@@ -18,15 +18,80 @@ This is a mono repository for Hulk AG infrastructure and Kubernetes cluster. We 
 
 ## ⛵ Kubernetes
 
-### Core Components
+### Repository Structure
 
-- [actions-runner-controller](https://github.com/actions/actions-runner-controller): self-hosted Github runners
-- [cilium](https://github.com/cilium/cilium): internal Kubernetes networking plugin
-- [cert-manager](https://cert-manager.io/docs/): creates SSL certificates for services in my cluster
-- [external-dns](https://github.com/kubernetes-sigs/external-dns): automatically syncs DNS records from my cluster ingresses to a DNS provider
-- [external-secrets](https://github.com/external-secrets/external-secrets/): managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect).
-- [ingress-nginx](https://github.com/kubernetes/ingress-nginx/): ingress controller for Kubernetes using NGINX as a reverse proxy and load balancer
-- [rook](https://github.com/rook/rook): distributed block storage for persistent storage
-- [sops](https://toolkit.fluxcd.io/guides/mozilla-sops/): managed secrets for Kubernetes, Ansible, and Terraform which are committed to Git
-- [tf-controller](https://github.com/weaveworks/tf-controller): additional Flux component used to run Terraform from within a Kubernetes cluster.
-- [volsync](https://github.com/backube/volsync) and [snapscheduler](https://github.com/backube/snapscheduler): backup and recovery of persistent volume claims
+Flux watches any folder in `clusters` (see Directories below) and makes the changes to the clusters based on the YAML manifests.
+
+```
+.
+├── applications
+│   ├── base
+│   │   ├── echo-server
+│   │   │   ├── helmrelease.yaml
+│   │   │   ├── kustomization.yaml
+│   │   │   └── namespace.yaml
+│   │   ├── external-secrets
+│   │   │   ├── helmrelease.yaml
+│   │   │   ├── kustomization.yaml
+│   │   │   └── namespace.yaml
+│   │   ├── monitoring
+│   │   │   ├── helmrelease.yaml
+│   │   │   ├── kustomization.yaml
+│   │   │   └── namespace.yaml
+│   │   └── podinfo
+│   │       ├── helmrelease.yaml
+│   │       ├── kustomization.yaml
+│   │       └── namespace.yaml
+│   ├── dev
+│   │   ├── echo-server
+│   │   │   └── kustomization.yaml
+│   │   ├── external-secrets
+│   │   │   ├── kustomization.yaml
+│   │   │   └── secret_store.yaml
+│   │   ├── monitoring
+│   │   │   ├── kube-prometheus-stack.values.yaml
+│   │   │   └── kustomization.yaml
+│   │   ├── podinfo
+│   │   │   ├── kustomization.yaml
+│   │   │   └── podinfo.values.yaml
+│   │   └── kustomization.yaml
+│   └── staging
+│       ├── kustomization.yaml
+│       └── podinfo.values.yaml
+├── clusters                                            # Entrypoint for Kubernetes Clusters
+│   ├── infra-kind-dev                                  # Entrypoint for infra-kind-dev
+│   │   ├── flux-system                                 # Main Flux Configuration for infra-kind-dev
+│   │   │   ├── gotk-components.yaml
+│   │   │   ├── gotk-sync.yaml
+│   │   │   └── kustomization.yaml
+│   │   ├── applications.yaml                           # Kustomization for Applications that are deployed in infra-kind-dev
+│   │   ├── cluster-vars.yaml                           # General cluster variables (ConfigMap)
+│   │   └── infrastructure.yaml                         # Kustomization for Infrastructure, Components that are needed for cluster functionality
+│   └── infra-kind-staging
+│       ├── flux-system
+│       │   ├── gotk-components.yaml
+│       │   ├── gotk-sync.yaml
+│       │   └── kustomization.yaml
+│       └── applications.yaml
+├── infrastructure
+│   ├── base
+│   │   └── cert-manager
+│   │       ├── helmrelease.yaml
+│   │       ├── kustomization.yaml
+│   │       └── namespace.yaml
+│   ├── infra-kind-dev
+│   │   └── cert-manager
+│   │       ├── clusterissuer.yaml
+│   │       ├── kustomization.yaml
+│   │       └── secret.sops.yaml
+│   └── infra-kind-staging
+└── README.md
+```
+
+### Infrastructure/Core Components
+
+The `Infrastructure` kustomization defines a set of applications, which are responsible for the cluster functionality. These components are the same on each GKE cluster.
+
+- [autoneg-controller](https://github.com/GoogleCloudPlatform/gke-autoneg-controller/tree/master)
+- 
+
