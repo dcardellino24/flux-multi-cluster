@@ -21,6 +21,7 @@ This is a mono repository for Hulk AG infrastructure and Kubernetes cluster. We 
 ### Repository Structure
 
 Flux watches any folder in `clusters` (see Directories below) and makes the changes to the clusters based on the YAML manifests.
+This approach causes a bit more overhead in duplicate code, but we are deploying *cluster-based* services/applications and can use separate secrets between those.
 
 ```
 .
@@ -73,18 +74,18 @@ Flux watches any folder in `clusters` (see Directories below) and makes the chan
 │       │   ├── gotk-sync.yaml
 │       │   └── kustomization.yaml
 │       └── applications.yaml
-├── infrastructure
-│   ├── base
-│   │   └── cert-manager
+├── infrastructure                                      # Entrypoint for Infrastructure kustomization
+│   ├── base                                            # Configuration that do not differentiate between clusters
+│   │   └── cert-manager                                # Namespace-Based split
 │   │       ├── helmrelease.yaml
 │   │       ├── kustomization.yaml
 │   │       └── namespace.yaml
-│   ├── infra-kind-dev
+│   ├── infra-kind-dev                                  # Entrypoint for infra-kind-dev
 │   │   └── cert-manager
 │   │       ├── clusterissuer.yaml
 │   │       ├── kustomization.yaml
 │   │       └── secret.sops.yaml
-│   └── infra-kind-staging
+│   └── infra-kind-staging                              # Entrypoint for infra-kind-dev
 └── README.md
 ```
 
@@ -92,6 +93,7 @@ Flux watches any folder in `clusters` (see Directories below) and makes the chan
 
 The `Infrastructure` kustomization defines a set of applications, which are responsible for the cluster functionality. These components are the same on each GKE cluster.
 
-- [autoneg-controller](https://github.com/GoogleCloudPlatform/gke-autoneg-controller/tree/master)
-- 
-
+- [autoneg-controller](https://github.com/GoogleCloudPlatform/gke-autoneg-controller/tree/master): This GKE controller provides simple custom integration between GKE and GCLB.
+- [contour](https://projectcontour.io/): Contour is an open source Kubernetes ingress controller providing the control plane for the Envoy edge and service proxy.​ 
+- [descheduler](https://sigs.k8s.io/descheduler): Descheduler for Kubernetes
+- [external-dns]()
