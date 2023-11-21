@@ -12,4 +12,3 @@ spec:
   values:
     ui:
       color: "#34577c"
-      message: "staging"
