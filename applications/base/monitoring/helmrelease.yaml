@@ -26,3 +26,20 @@ spec:
   install:
     remediation:
       retries: 3
+  values:
+    commonLabels:
+      cluster: ${cluster_name}
+      environment: ${env}
+    crds:
+      enabled: true
+    alertmanager:
+      enabled: false
+    grafana:
+      enabled: false
+    prometheus:
+      prometheusSpec:
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false

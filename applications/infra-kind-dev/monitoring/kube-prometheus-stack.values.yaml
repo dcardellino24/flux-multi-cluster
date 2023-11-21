@@ -5,16 +5,3 @@ metadata:
   namespace: monitoring
 spec:
   values:
-    crds:
-      enabled: true
-    alertmanager:
-      enabled: false
-    grafana:
-      enabled: false
-    prometheus:
-      prometheusSpec:
-        ruleSelectorNilUsesHelmValues: false
-        serviceMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelectorNilUsesHelmValues: false
-        probeSelectorNilUsesHelmValues: false
-        scrapeConfigSelectorNilUsesHelmValues: false
