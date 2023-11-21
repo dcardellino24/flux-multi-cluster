@@ -5,5 +5,5 @@ metadata:
   namespace: flux-system
 data:
   google_project: project-123
-  env: sandbox
+  env: dev
   cluster_name: infra-kind-dev
