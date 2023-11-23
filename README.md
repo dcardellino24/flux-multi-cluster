@@ -43,7 +43,7 @@ This approach causes a bit more overhead in duplicate code, but we are deploying
 │   │       ├── helmrelease.yaml
 │   │       ├── kustomization.yaml
 │   │       └── namespace.yaml
-│   ├── dev
+│   ├── infra-kind-dev
 │   │   ├── echo-server
 │   │   │   └── kustomization.yaml
 │   │   ├── external-secrets
@@ -56,7 +56,7 @@ This approach causes a bit more overhead in duplicate code, but we are deploying
 │   │   │   ├── kustomization.yaml
 │   │   │   └── podinfo.values.yaml
 │   │   └── kustomization.yaml
-│   └── staging
+│   └── infra-kind-staging
 │       ├── kustomization.yaml
 │       └── podinfo.values.yaml
 ├── clusters                                            # Entrypoint for Kubernetes Clusters
